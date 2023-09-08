@@ -1,3 +1,3 @@
 # Rajesh
 
-https://mukeshsoftware.github.io/rajesh/index.htm
+https://mukeshsoftware.github.io/Rajesh/index.htm
