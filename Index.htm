@@ -3,226 +3,565 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vishnu Fabrix - Interior & Structural Fabrication Services</title>
-    <!-- Tailwind CSS CDN -->
+    <title>Vishnu Fabrix | Premium Interior & Structural Fabrication</title>
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chart.js CDN -->
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Typed.js for Typing Animation -->
+    <!-- Typed.js -->
     <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
-    <!-- Instagram Embed Script -->
+    <!-- Instagram Embed -->
     <script async src="//www.instagram.com/embed.js"></script>
+
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        brand: {
-                            50: '#f4f7fa',
-                            100: '#e1e8f0',
-                            200: '#c5d3e2',
-                            600: '#2c435e',
-                            700: '#1e3046',
-                            800: '#142233',
-                            accent: '#d97706',
-                            accentHover: '#b45309'
-                        }
+                        slate: { 800: '#1e293b', 900: '#0f172a' },
+                        amber: { 500: '#f59e0b', 600: '#d97706' }
                     }
                 }
             }
         }
     </script>
     <style>
-        .chart-container {
-            position: relative;
-            width: 100%;
-            max-width: 580px;
-            height: 320px;
-            max-height: 360px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        @media (min-width: 768px) {
-            .chart-container { height: 350px; }
-        }
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #f1f5f9; }
-        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
-        html { scroll-behavior: smooth; }
-        .hero-panel img { transition: transform 1.2s ease; }
-        .hero-panel:hover img { transform: scale(1.035); }
-        .gallery-photo { width:100%; height:100%; object-fit:cover; transition:transform .45s ease, filter .45s ease; }
-        .gallery-card:hover .gallery-photo { transform:scale(1.06); filter:brightness(.82); }
-        .gallery-view { position:absolute; inset:auto 12px 12px auto; background:rgba(15,23,42,.88); color:white; padding:8px 12px; border-radius:8px; font-size:12px; opacity:0; transform:translateY(5px); transition:all .25s ease; }
-        .gallery-card:hover .gallery-view, .gallery-card:focus-visible .gallery-view { opacity:1; transform:translateY(0); }
-        .gallery-filter { background:#e2e8f0; color:#334155; transition:all .2s ease; }
-        .gallery-filter:hover { background:#cbd5e1; }
-        .gallery-filter.active-filter { background:#d97706; color:#fff; box-shadow:0 3px 10px rgba(217,119,6,.2); }
-        /* Fix for Instagram embeds responsiveness */
-        .instagram-media { width: 100% !important; max-width: 100% !important; margin: 0 auto !important; border-radius: 8px; }
-        @media (prefers-reduced-motion: reduce) { html {scroll-behavior:auto} *,*::before,*::after {transition:none !important; animation:none !important} }
-        @media print { header, footer, #gallery-lightbox, button { display:none !important; } .tab-content.hidden {display:none !important;} }
+        .tab-content { display: none; animation: fadeIn 0.4s ease-in-out; }
+        .tab-content.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .instagram-media { width: 100% !important; max-width: 100% !important; margin: 0 auto !important; border-radius: 12px; }
+        
+        .chart-container { position: relative; width: 100%; height: 320px; }
+        
+        /* Gallery Hover Effects */
+        .gallery-photo { width: 100%; height: 100%; object-fit: cover; transition: transform 0.45s ease, filter 0.45s ease; }
+        .gallery-card:hover .gallery-photo { transform: scale(1.06); filter: brightness(0.82); }
+        .gallery-view { position: absolute; inset: auto 12px 12px auto; background: rgba(15,23,42,0.9); color: white; padding: 8px 12px; border-radius: 8px; font-size: 12px; opacity: 0; transform: translateY(5px); transition: all 0.25s ease; }
+        .gallery-card:hover .gallery-view { opacity: 1; transform: translateY(0); }
+        .gallery-filter.active-filter { background: #d97706; color: white; box-shadow: 0 3px 10px rgba(217,119,6,0.3); }
+
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #d97706; }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans antialiased flex flex-col min-h-screen">
+<body class="bg-slate-900 text-gray-200 font-sans antialiased selection:bg-amber-500 selection:text-white flex flex-col min-h-screen">
 
-    <!-- Top Header / Navigation -->
-    <header class="bg-slate-900 text-white shadow-lg sticky top-0 z-50 border-b border-amber-600/40">
+    <!-- Top Navigation -->
+    <header class="bg-slate-900 border-b border-amber-600/30 sticky top-0 z-50 shadow-xl">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <!-- Brand Title -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between py-4 gap-4">
                 <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 rounded-lg bg-amber-600 flex items-center justify-center font-bold text-xl text-white shadow-md">
-                        VF
-                    </div>
+                    <div class="w-12 h-12 rounded-lg bg-amber-600 flex items-center justify-center font-black text-2xl text-white shadow-md">VF</div>
                     <div>
-                        <h1 class="text-xl sm:text-2xl font-black tracking-wide text-white uppercase">VISHNU FABRIX</h1>
-                        <p class="text-xs text-amber-400 font-medium tracking-wider uppercase">UPVC, Aluminium & Steel Works</p>
+                        <h1 class="text-2xl font-black tracking-wide text-white uppercase">Vishnu Fabrix</h1>
+                        <p class="text-[11px] text-amber-400 font-bold tracking-wider uppercase">UPVC, Aluminium & Steel Works</p>
                     </div>
                 </div>
-
-                <!-- Contact Info -->
-                <div class="hidden md:flex items-center space-x-6 text-sm">
-                    <div class="flex items-center space-x-2 bg-slate-800 px-3 py-1.5 rounded-md border border-slate-700">
-                        <span class="text-amber-500 font-bold">📍</span>
-                        <span class="text-slate-300 text-xs">Manifit Bazar, Near Old Post Office, Telco</span>
+                <div class="flex items-center space-x-4 text-sm">
+                    <div class="hidden lg:flex items-center space-x-2 bg-slate-800 px-3 py-1.5 rounded-md border border-slate-700">
+                        <span class="text-amber-500">📍</span>
+                        <span class="text-slate-300 text-xs">Manifit Bazar, Telco, Jsr-831004</span>
                     </div>
-                    <a href="tel:9142610295" class="flex items-center space-x-2 bg-amber-600 hover:bg-amber-700 text-white font-semibold px-4 py-2 rounded-lg transition-colors shadow">
-                        <span>📞</span>
-                        <span>+91 9142610295</span>
+                    <a href="tel:9142610295" class="flex items-center space-x-2 bg-amber-600 hover:bg-amber-500 text-white font-bold px-4 py-2 rounded-lg transition-colors">
+                        <span>📞 +91 9142610295</span>
                     </a>
                 </div>
             </div>
 
-            <!-- Navigation -->
-            <nav class="flex gap-2 border-t border-slate-800 pt-3 pb-3 overflow-x-auto text-xs sm:text-sm font-medium" aria-label="Main navigation">
-                <button onclick="switchTab('overview')" id="tab-overview" class="tab-btn px-4 py-2.5 rounded-lg transition-all bg-amber-600 text-white font-semibold whitespace-nowrap">Overview & Services</button>
-                <button onclick="switchTab('gallery')" id="tab-gallery" class="tab-btn px-4 py-2.5 rounded-lg transition-all text-slate-300 hover:text-white hover:bg-slate-800 whitespace-nowrap">Project Gallery</button>
-                <button onclick="switchTab('videos')" id="tab-videos" class="tab-btn px-4 py-2.5 rounded-lg transition-all text-slate-300 hover:text-white hover:bg-slate-800 whitespace-nowrap">Video Showcase</button>
-                <button onclick="switchTab('contact')" id="tab-contact" class="tab-btn px-4 py-2.5 rounded-lg transition-all text-slate-300 hover:text-white hover:bg-slate-800 whitespace-nowrap">Request a Quote</button>
+            <!-- Tab Buttons -->
+            <nav class="flex gap-2 overflow-x-auto pb-4 text-sm font-semibold hide-scrollbar">
+                <button onclick="switchTab('overview')" id="tab-overview" class="tab-btn px-4 py-2 rounded-lg bg-amber-600 text-white whitespace-nowrap transition-colors">Overview</button>
+                <button onclick="switchTab('estimator')" id="tab-estimator" class="tab-btn px-4 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 whitespace-nowrap transition-colors">Estimator & Materials</button>
+                <button onclick="switchTab('gallery')" id="tab-gallery" class="tab-btn px-4 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 whitespace-nowrap transition-colors">Project Gallery</button>
+                <button onclick="switchTab('videos')" id="tab-videos" class="tab-btn px-4 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 whitespace-nowrap transition-colors">Video Showcase</button>
+                <button onclick="switchTab('testimonials')" id="tab-testimonials" class="tab-btn px-4 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 whitespace-nowrap transition-colors">Testimonials</button>
+                <button onclick="switchTab('contact')" id="tab-contact" class="tab-btn px-4 py-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 whitespace-nowrap transition-colors">Request Quote</button>
             </nav>
         </div>
     </header>
 
-    <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        
-        <!-- SECTION 1: OVERVIEW -->
-        <section id="sec-overview" class="tab-content space-y-8">
-            <div class="hero-panel relative overflow-hidden rounded-2xl min-h-[300px] md:min-h-[390px] flex items-end shadow-xl mb-8">
-                <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=85" alt="Modern home interior" class="absolute inset-0 w-full h-full object-cover" fetchpriority="high">
-                <div class="absolute inset-0 bg-gradient-to-r from-slate-950/95 via-slate-900/65 to-slate-900/10"></div>
-                <div class="relative z-10 p-7 sm:p-10 max-w-2xl text-white">
-                    <span class="inline-flex items-center gap-2 rounded-full border border-amber-300/40 bg-amber-500/15 px-3 py-1.5 text-xs font-bold uppercase tracking-widest text-amber-300">Made for your space</span>
-                    <h2 class="mt-4 text-3xl sm:text-5xl font-black leading-tight">Craftsmanship that brings ideas to life.</h2>
-                    <!-- Typed.js container -->
-                    <p class="mt-2 text-xl sm:text-2xl text-amber-400 font-semibold h-8"><span id="element"></span></p>
-                    
-                    <p class="mt-4 max-w-xl text-sm sm:text-base leading-relaxed text-slate-200">UPVC windows, aluminium systems, modular kitchens and custom steel fabrication for homes and commercial spaces in Jamshedpur.</p>
-                    <div class="mt-6 flex flex-wrap gap-3">
-                        <button onclick="switchTab('videos')" class="rounded-lg bg-amber-600 px-5 py-3 text-sm font-bold text-white shadow-lg hover:bg-amber-700 transition">Watch our work ↗</button>
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+
+        <!-- ================= 1. OVERVIEW & CAPABILITIES ================= -->
+        <section id="sec-overview" class="tab-content active space-y-10">
+            <div class="relative overflow-hidden rounded-2xl min-h-[400px] flex items-center shadow-2xl border border-slate-700 bg-slate-800">
+                <div class="absolute inset-0 z-0 opacity-40">
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1800&q=80" alt="Interior Fabrication" class="w-full h-full object-cover">
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/90 to-transparent z-0"></div>
+                <div class="relative z-10 p-8 sm:p-12 max-w-2xl">
+                    <span class="inline-block px-3 py-1 bg-amber-500/20 border border-amber-500/30 text-amber-400 rounded-full text-xs font-bold uppercase tracking-wider mb-4">Precision Engineering Applied</span>
+                    <h2 class="text-4xl sm:text-5xl font-black text-white leading-tight mb-4">Craftsmanship tailored to your space.</h2>
+                    <p class="text-xl sm:text-2xl text-slate-300 font-medium h-8 mb-6">Expert <span id="typed-element" class="text-amber-500"></span></p>
+                    <button onclick="switchTab('gallery')" class="bg-amber-600 hover:bg-amber-500 text-white font-bold py-3 px-6 rounded-lg transition-colors">Explore Portfolio ↗</button>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Services -->
+                <div class="bg-slate-800 p-8 rounded-2xl border border-slate-700">
+                    <h3 class="text-2xl font-bold text-white mb-6 border-b border-slate-700 pb-4">Core Fabrication Services</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start"><span class="text-amber-500 mr-3 text-xl">🍳</span><div><strong class="text-slate-100 block">Modular Kitchen Systems</strong><span class="text-slate-400 text-sm">Acrylic, PVC, and Aluminium profile cabinetry with tandem drawer configurations.</span></div></li>
+                        <li class="flex items-start"><span class="text-amber-500 mr-3 text-xl">🪟</span><div><strong class="text-slate-100 block">UPVC & Aluminium Fenestration</strong><span class="text-slate-400 text-sm">Acoustic and thermally insulated sliding and casement windows and doors.</span></div></li>
+                        <li class="flex items-start"><span class="text-amber-500 mr-3 text-xl">🪜</span><div><strong class="text-slate-100 block">Structural Steel Railings</strong><span class="text-slate-400 text-sm">SS 304 architectural stair and balcony guardrails with seamless TIG welding.</span></div></li>
+                        <li class="flex items-start"><span class="text-amber-500 mr-3 text-xl">🚪</span><div><strong class="text-slate-100 block">Main Entry Perimeter Gates</strong><span class="text-slate-400 text-sm">Heavy MS structural frameworks and custom CNC laser-cut security gates.</span></div></li>
+                    </ul>
+                </div>
+                
+                <!-- Workshop Standards -->
+                <div class="bg-slate-800 p-8 rounded-2xl border border-slate-700">
+                    <h3 class="text-2xl font-bold text-white mb-6 border-b border-slate-700 pb-4">Workshop & Engineering Standards</h3>
+                    <p class="text-slate-300 text-sm leading-relaxed mb-6">Our Jamshedpur facility operates on lean 5S organizational principles to ensure optimal material flow, reduced lead times, and rigorous quality control. Every structural profile is processed with precision to eliminate defects before installation.</p>
+                    <div class="space-y-4">
+                        <div class="flex items-center p-3 bg-slate-900 rounded-lg border border-slate-700">
+                            <div class="bg-amber-600 text-white font-bold px-3 py-1 rounded text-sm mr-4">01</div>
+                            <p class="text-sm text-slate-300"><strong>Material Benchmarking:</strong> Sourcing high-grade SS 304, reinforced UPVC, and heavy-gauge aluminium.</p>
+                        </div>
+                        <div class="flex items-center p-3 bg-slate-900 rounded-lg border border-slate-700">
+                            <div class="bg-amber-600 text-white font-bold px-3 py-1 rounded text-sm mr-4">02</div>
+                            <p class="text-sm text-slate-300"><strong>Precision Machining:</strong> Millimeter-accurate profile cutting and automated routing for flawless joints.</p>
+                        </div>
+                        <div class="flex items-center p-3 bg-slate-900 rounded-lg border border-slate-700">
+                            <div class="bg-amber-600 text-white font-bold px-3 py-1 rounded text-sm mr-4">03</div>
+                            <p class="text-sm text-slate-300"><strong>Failure Mode Avoidance:</strong> Argon arc welding and structural stress checks to guarantee long-term durability.</p>
+                        </div>
                     </div>
                 </div>
             </div>
+        </section>
 
-            <!-- Business Capabilities -->
-            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 sm:p-8">
-                <div class="max-w-3xl">
-                    <span class="inline-block px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-bold uppercase tracking-wider mb-3">Business & Capabilities</span>
-                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">Comprehensive Interior & Structural Fabrication Solutions</h2>
-                    <p class="text-slate-600 leading-relaxed text-sm sm:text-base">Welcome to the interactive service analysis portal for <strong>Vishnu Fabrix</strong>. Based in Telco, Jamshedpur, we deliver high-precision UPVC, Aluminium, and Structural Steel works ranging from modern modular kitchen systems to heavy-duty architectural stair railings.</p>
+        <!-- ================= 2. ESTIMATOR & MATERIALS ================= -->
+        <section id="sec-estimator" class="tab-content space-y-8">
+            <div class="text-center max-w-3xl mx-auto mb-10">
+                <h2 class="text-3xl font-black text-white">Project Cost & Material Analytics</h2>
+                <p class="text-slate-400 mt-3">Compare structural properties of our raw materials and generate an instant, dynamic cost breakdown for your next interior or exterior fabrication project.</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                <!-- Cost Estimator Panel -->
+                <div class="bg-slate-800 p-6 sm:p-8 rounded-2xl border border-slate-700 shadow-lg">
+                    <h3 class="text-xl font-bold text-amber-500 mb-6 flex items-center border-b border-slate-700 pb-3">
+                        <span class="mr-2">📊</span> Interactive Quote Generator
+                    </h3>
+                    
+                    <div class="space-y-5">
+                        <div>
+                            <label class="block text-slate-300 font-semibold mb-2 text-sm">Select Fabrication Category</label>
+                            <select id="est-category" onchange="updateEstimatorForm()" class="w-full bg-slate-900 text-white border border-slate-600 rounded-lg p-3 focus:outline-none focus:border-amber-500 transition-colors">
+                                <option value="kitchen">Modular Kitchen Setup</option>
+                                <option value="windows">UPVC / Aluminium Fenestration</option>
+                                <option value="railing">Stainless Steel Railings</option>
+                                <option value="gate">Main Entry Gates</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label class="block text-slate-300 font-semibold mb-2 text-sm">Select Material Grade / Profile</label>
+                            <select id="est-grade" onchange="calculateEstimate()" class="w-full bg-slate-900 text-white border border-slate-600 rounded-lg p-3 focus:outline-none focus:border-amber-500 transition-colors">
+                                <!-- Populated by JS -->
+                            </select>
+                        </div>
+
+                        <div>
+                            <label id="est-qty-label" class="block text-slate-300 font-semibold mb-2 text-sm">Total Measurement (Rft)</label>
+                            <input type="number" id="est-qty" value="100" oninput="calculateEstimate()" class="w-full bg-slate-900 text-white border border-slate-600 rounded-lg p-3 focus:outline-none focus:border-amber-500 transition-colors">
+                        </div>
+
+                        <div class="flex items-center space-x-3 pt-2">
+                            <input type="checkbox" id="est-opt-premium" onchange="calculateEstimate()" class="w-5 h-5 accent-amber-600 rounded bg-slate-900 border-slate-600">
+                            <label for="est-opt-premium" class="text-sm text-slate-300">Include Premium Hardware & Soft-Close Fittings (+15%)</label>
+                        </div>
+                    </div>
+
+                    <div class="mt-8 bg-slate-900 p-6 rounded-xl border border-amber-600/30 text-center">
+                        <p class="text-slate-400 text-sm font-semibold uppercase tracking-wider mb-1">Estimated Project Total</p>
+                        <p id="est-total-cost" class="text-4xl font-black text-amber-500">₹ 0</p>
+                        <p class="text-xs text-slate-500 mt-2">Based on <span id="est-qty-display">0</span></p>
+                    </div>
+                </div>
+
+                <!-- Charts Panel -->
+                <div class="space-y-8">
+                    <!-- Donut Chart -->
+                    <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 shadow-lg">
+                        <h3 class="text-sm font-bold text-slate-300 mb-4 uppercase tracking-wider text-center">Cost Distribution</h3>
+                        <div class="chart-container h-[220px]">
+                            <canvas id="costDonutChart"></canvas>
+                        </div>
+                    </div>
+                    <!-- Radar Chart -->
+                    <div class="bg-slate-800 p-6 rounded-2xl border border-slate-700 shadow-lg">
+                        <h3 class="text-sm font-bold text-slate-300 mb-4 uppercase tracking-wider text-center">Material Performance Matrix</h3>
+                        <div class="chart-container h-[260px]">
+                            <canvas id="materialRadarChart"></canvas>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION 2: GALLERY (Placeholder matching source[span_1](start_span)[span_1](end_span)) -->
-        <section id="sec-gallery" class="tab-content hidden space-y-7">
-            <div class="rounded-2xl bg-slate-900 text-white p-6 relative overflow-hidden">
-                <h2 class="mt-4 text-3xl font-black">A closer look at the possibilities.</h2>
-                <p class="mt-3 text-slate-300">Browse visual references for the types of work Vishnu Fabrix offers.</p>
-            </div>
-            <!-- Standard Image Grid omitted for brevity, logic remains from CSS template -->
-        </section>
-
-        <!-- SECTION 3: VIDEO SHOWCASE -->
-        <section id="sec-videos" class="tab-content hidden space-y-8">
-            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 sm:p-8">
-                <div class="max-w-3xl">
-                    <span class="inline-block px-3 py-1 bg-amber-100 text-amber-800 rounded-full text-xs font-bold uppercase tracking-wider mb-3">Video Showcase</span>
-                    <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">Workshop Action & Completed Projects</h2>
-                    <p class="text-slate-600 leading-relaxed text-sm sm:text-base">Experience the craftsmanship and quality of Vishnu Fabrix in motion. Watch our recent fabrication projects across structural steel, UPVC, and aluminium designs.</p>
+        <!-- ================= 3. IMAGE GALLERY ================= -->
+        <section id="sec-gallery" class="tab-content space-y-6">
+            <div class="text-center max-w-3xl mx-auto mb-8">
+                <h2 class="text-3xl font-black text-white mb-4">Fabrication Portfolio</h2>
+                <div class="flex flex-wrap justify-center gap-2 mt-4">
+                    <button class="gallery-filter active-filter px-4 py-1.5 rounded-full text-sm font-bold bg-slate-700 text-slate-300" data-filter="all" onclick="filterGallery('all', this)">All Work</button>
+                    <button class="gallery-filter px-4 py-1.5 rounded-full text-sm font-bold bg-slate-800 text-slate-400 hover:bg-slate-700" data-filter="kitchen" onclick="filterGallery('kitchen', this)">Modular Kitchens</button>
+                    <button class="gallery-filter px-4 py-1.5 rounded-full text-sm font-bold bg-slate-800 text-slate-400 hover:bg-slate-700" data-filter="windows" onclick="filterGallery('windows', this)">UPVC & Aluminium</button>
+                    <button class="gallery-filter px-4 py-1.5 rounded-full text-sm font-bold bg-slate-800 text-slate-400 hover:bg-slate-700" data-filter="steel" onclick="filterGallery('steel', this)">Steel Railings & Gates</button>
                 </div>
             </div>
 
-            <!-- 6 Instagram Reels Grid -->
+            <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Gallery items based on Source[span_0](start_span)[span_0](end_span) -->
+                <div class="gallery-card group relative cursor-pointer rounded-xl overflow-hidden bg-slate-800 border border-slate-700 aspect-[4/3]" data-category="kitchen" onclick="openGalleryImage(0)">
+                    <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=800&q=80" alt="Modular Kitchen" class="gallery-photo">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900 to-transparent p-4 translate-y-2 group-hover:translate-y-0 transition-transform">
+                        <p class="text-amber-500 font-bold text-sm">Modular Kitchens</p>
+                    </div>
+                    <span class="gallery-view">Expand ↗</span>
+                </div>
+                <div class="gallery-card group relative cursor-pointer rounded-xl overflow-hidden bg-slate-800 border border-slate-700 aspect-[4/3]" data-category="windows" onclick="openGalleryImage(1)">
+                    <img src="https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=800&q=80" alt="UPVC Windows" class="gallery-photo">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900 to-transparent p-4 translate-y-2 group-hover:translate-y-0 transition-transform">
+                        <p class="text-amber-500 font-bold text-sm">UPVC Fenestration</p>
+                    </div>
+                    <span class="gallery-view">Expand ↗</span>
+                </div>
+                <div class="gallery-card group relative cursor-pointer rounded-xl overflow-hidden bg-slate-800 border border-slate-700 aspect-[4/3]" data-category="steel" onclick="openGalleryImage(2)">
+                    <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=800&q=80" alt="Steel Railing" class="gallery-photo">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900 to-transparent p-4 translate-y-2 group-hover:translate-y-0 transition-transform">
+                        <p class="text-amber-500 font-bold text-sm">SS 304 Railings</p>
+                    </div>
+                    <span class="gallery-view">Expand ↗</span>
+                </div>
+                <div class="gallery-card group relative cursor-pointer rounded-xl overflow-hidden bg-slate-800 border border-slate-700 aspect-[4/3]" data-category="steel" onclick="openGalleryImage(3)">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56c0a?auto=format&fit=crop&w=800&q=80" alt="Steel Gate" class="gallery-photo">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900 to-transparent p-4 translate-y-2 group-hover:translate-y-0 transition-transform">
+                        <p class="text-amber-500 font-bold text-sm">Main Entry Gates</p>
+                    </div>
+                    <span class="gallery-view">Expand ↗</span>
+                </div>
+                <div class="gallery-card group relative cursor-pointer rounded-xl overflow-hidden bg-slate-800 border border-slate-700 aspect-[4/3]" data-category="windows" onclick="openGalleryImage(4)">
+                    <img src="https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=800&q=80" alt="Aluminium Partition" class="gallery-photo">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900 to-transparent p-4 translate-y-2 group-hover:translate-y-0 transition-transform">
+                        <p class="text-amber-500 font-bold text-sm">Aluminium Partitions</p>
+                    </div>
+                    <span class="gallery-view">Expand ↗</span>
+                </div>
+                <div class="gallery-card group relative cursor-pointer rounded-xl overflow-hidden bg-slate-800 border border-slate-700 aspect-[4/3]" data-category="kitchen" onclick="openGalleryImage(5)">
+                    <img src="https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=800&q=80" alt="Premium Cabinets" class="gallery-photo">
+                    <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-slate-900 to-transparent p-4 translate-y-2 group-hover:translate-y-0 transition-transform">
+                        <p class="text-amber-500 font-bold text-sm">Custom Interiors</p>
+                    </div>
+                    <span class="gallery-view">Expand ↗</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Lightbox -->
+        <div id="gallery-lightbox" class="fixed inset-0 z-[100] hidden items-center justify-center bg-slate-950/95 p-4" onclick="if(event.target===this)closeGalleryImage()">
+            <button onclick="closeGalleryImage()" class="absolute right-5 top-5 rounded-full bg-slate-800 px-4 py-2 text-white hover:bg-slate-700 font-bold text-sm">✕ Close</button>
+            <button onclick="stepGalleryImage(-1)" class="absolute left-4 top-1/2 -translate-y-1/2 rounded-full bg-slate-800 w-12 h-12 text-white text-2xl hover:bg-amber-600 transition-colors">‹</button>
+            <figure class="max-w-5xl w-full">
+                <img id="lightbox-image" src="" alt="" class="max-h-[85vh] w-full object-contain rounded-lg shadow-2xl">
+                <figcaption id="lightbox-caption" class="mt-4 text-center text-sm font-bold text-amber-500 uppercase tracking-widest"></figcaption>
+            </figure>
+            <button onclick="stepGalleryImage(1)" class="absolute right-4 top-1/2 -translate-y-1/2 rounded-full bg-slate-800 w-12 h-12 text-white text-2xl hover:bg-amber-600 transition-colors">›</button>
+        </div>
+
+        <!-- ================= 4. VIDEO SHOWCASE ================= -->
+        <section id="sec-videos" class="tab-content space-y-8">
+            <div class="text-center max-w-3xl mx-auto mb-8">
+                <h2 class="text-3xl font-black text-white mb-4">Workshop Action & Process</h2>
+                <p class="text-slate-400">Experience our fabrication processes, site installations, and finished structural layouts directly from our Instagram feed.</p>
+            </div>
+
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <div class="bg-slate-900 p-2 rounded-xl shadow-lg border border-slate-800 flex justify-center">
-                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DVJAQ0jifN9/" data-instgrm-version="14"></blockquote>
-                </div>
-                <div class="bg-slate-900 p-2 rounded-xl shadow-lg border border-slate-800 flex justify-center">
-                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DZkYT4iJ0Ai/" data-instgrm-version="14"></blockquote>
-                </div>
-                <div class="bg-slate-900 p-2 rounded-xl shadow-lg border border-slate-800 flex justify-center">
-                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DazAkEqpf2W/" data-instgrm-version="14"></blockquote>
-                </div>
-                <div class="bg-slate-900 p-2 rounded-xl shadow-lg border border-slate-800 flex justify-center">
-                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DK1hE3sp1yG/" data-instgrm-version="14"></blockquote>
-                </div>
-                <div class="bg-slate-900 p-2 rounded-xl shadow-lg border border-slate-800 flex justify-center">
-                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DK6rgfdpqzZ/" data-instgrm-version="14"></blockquote>
-                </div>
-                <div class="bg-slate-900 p-2 rounded-xl shadow-lg border border-slate-800 flex justify-center">
-                    <blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DMaZkvAJA3G/" data-instgrm-version="14"></blockquote>
-                </div>
-            </div>
-            
-            <div class="text-center mt-6">
-                <a href="https://www.instagram.com/rajesh.das746/" target="_blank" class="inline-flex items-center space-x-2 px-6 py-3 bg-slate-900 text-amber-400 hover:text-amber-300 font-bold rounded-lg transition-colors">
-                    <span>Follow @rajesh.das746 for more</span>
-                    <span>↗</span>
-                </a>
+                <div class="bg-slate-800 p-2 rounded-xl shadow-lg border border-slate-700 flex justify-center"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DVJAQ0jifN9/" data-instgrm-version="14"></blockquote></div>
+                <div class="bg-slate-800 p-2 rounded-xl shadow-lg border border-slate-700 flex justify-center"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DZkYT4iJ0Ai/" data-instgrm-version="14"></blockquote></div>
+                <div class="bg-slate-800 p-2 rounded-xl shadow-lg border border-slate-700 flex justify-center"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DazAkEqpf2W/" data-instgrm-version="14"></blockquote></div>
+                <div class="bg-slate-800 p-2 rounded-xl shadow-lg border border-slate-700 flex justify-center"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DK1hE3sp1yG/" data-instgrm-version="14"></blockquote></div>
+                <div class="bg-slate-800 p-2 rounded-xl shadow-lg border border-slate-700 flex justify-center"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DK6rgfdpqzZ/" data-instgrm-version="14"></blockquote></div>
+                <div class="bg-slate-800 p-2 rounded-xl shadow-lg border border-slate-700 flex justify-center"><blockquote class="instagram-media" data-instgrm-permalink="https://www.instagram.com/reel/DMaZkvAJA3G/" data-instgrm-version="14"></blockquote></div>
             </div>
         </section>
 
-        <!-- SECTION 4: CONTACT -->
-        <section id="sec-contact" class="tab-content hidden space-y-8">
-            <div class="bg-white rounded-xl shadow-sm border border-slate-200 p-6 sm:p-8">
-                <h2 class="text-2xl sm:text-3xl font-bold text-slate-900 mb-4">Contact & Custom Quotation Request</h2>
-                <p class="text-slate-600">Get in touch with Vishnu Fabrix for site measurements, structural consultation, or customized project estimates.</p>
+        <!-- ================= 5. TESTIMONIALS ================= -->
+        <section id="sec-testimonials" class="tab-content space-y-8">
+            <h2 class="text-3xl font-black text-center text-white mb-10">Client Feedback</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="bg-slate-800 p-8 rounded-2xl border border-slate-700 shadow-lg relative">
+                    <div class="text-amber-500 text-6xl absolute top-2 right-6 opacity-10 font-serif">"</div>
+                    <div class="text-amber-500 text-lg mb-4">★★★★★</div>
+                    <p class="text-slate-300 italic mb-6">"Vishnu Fabrix completely transformed our space with their UPVC windows. The finish is flawless, and the sound insulation from the street is fantastic. Precise fabrication work."</p>
+                    <p class="text-white font-bold tracking-wide">- Ramesh K., Jamshedpur</p>
+                </div>
+                <div class="bg-slate-800 p-8 rounded-2xl border border-slate-700 shadow-lg relative">
+                    <div class="text-amber-500 text-6xl absolute top-2 right-6 opacity-10 font-serif">"</div>
+                    <div class="text-amber-500 text-lg mb-4">★★★★★</div>
+                    <p class="text-slate-300 italic mb-6">"The modular kitchen they installed was exactly what we envisioned. The team maintained a clean workspace and the steel fittings are of top-tier quality."</p>
+                    <p class="text-white font-bold tracking-wide">- Priya S., Homeowner</p>
+                </div>
+                <div class="bg-slate-800 p-8 rounded-2xl border border-slate-700 shadow-lg relative">
+                    <div class="text-amber-500 text-6xl absolute top-2 right-6 opacity-10 font-serif">"</div>
+                    <div class="text-amber-500 text-lg mb-4">★★★★★</div>
+                    <p class="text-slate-300 italic mb-6">"Got SS stair railings done for my commercial property. Sturdy build, excellent argon welding finish with no visible joints, and delivered strictly on time."</p>
+                    <p class="text-white font-bold tracking-wide">- Amit Verma, Contractor</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= 6. CONTACT & QUOTE ================= -->
+        <section id="sec-contact" class="tab-content space-y-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                
+                <div class="lg:col-span-5 space-y-6">
+                    <div class="bg-amber-600 text-white p-8 rounded-2xl shadow-xl space-y-6">
+                        <div>
+                            <h3 class="text-2xl font-black uppercase mb-1">Vishnu Fabrix</h3>
+                            <p class="text-amber-200 font-bold text-sm">Industrial Quality. Interior Finish.</p>
+                        </div>
+                        <div class="space-y-4 pt-4 border-t border-amber-500/50">
+                            <div class="flex items-start space-x-4">
+                                <span class="text-2xl">📍</span>
+                                <div><p class="font-bold text-lg">Workshop Address</p><p class="text-amber-100 text-sm mt-1">Manifit Bazar Near Old Post Office Telco, Jsr-831004[span_1](start_span)[span_1](end_span)[span_2](start_span)[span_2](end_span)</p></div>
+                            </div>
+                            <div class="flex items-start space-x-4">
+                                <span class="text-2xl">📞</span>
+                                <div><p class="font-bold text-lg">Contact Number</p><p class="text-amber-100 text-sm mt-1">+91 9142610295[span_3](start_span)[span_3](end_span)[span_4](start_span)[span_4](end_span)</p></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-7 bg-slate-800 p-8 rounded-2xl border border-slate-700 shadow-lg">
+                    <h3 class="text-xl font-bold text-white mb-6 border-b border-slate-700 pb-3">Request a Site Visit / Official Quote</h3>
+                    <form onsubmit="generateQuotePreview(event)" class="space-y-5">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                            <div>
+                                <label class="block text-slate-300 text-sm font-bold mb-2">Full Name</label>
+                                <input type="text" id="form-name" required class="w-full bg-slate-900 border border-slate-600 text-white rounded-lg p-3 focus:border-amber-500 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-slate-300 text-sm font-bold mb-2">Phone Number</label>
+                                <input type="tel" id="form-phone" required class="w-full bg-slate-900 border border-slate-600 text-white rounded-lg p-3 focus:border-amber-500 focus:outline-none">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="block text-slate-300 text-sm font-bold mb-2">Project Requirements / Dimensions</label>
+                            <textarea id="form-notes" rows="3" class="w-full bg-slate-900 border border-slate-600 text-white rounded-lg p-3 focus:border-amber-500 focus:outline-none" placeholder="E.g. Need a quote for 150 sq.ft UPVC windows..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-amber-600 hover:bg-amber-500 text-white font-bold py-4 rounded-lg uppercase tracking-wider transition-colors shadow-lg">
+                            Generate Printable Inquiry Summary
+                        </button>
+                    </form>
+
+                    <!-- Quote Preview Box -->
+                    <div id="quote-preview-box" class="hidden mt-6 p-6 bg-slate-900 rounded-xl border border-amber-600/50">
+                        <div class="flex justify-between items-center mb-4 border-b border-slate-700 pb-2">
+                            <h4 class="font-bold text-amber-500 uppercase tracking-wider text-sm">Official Inquiry Draft</h4>
+                            <button onclick="window.print()" class="text-white bg-slate-700 hover:bg-slate-600 px-3 py-1 rounded text-xs font-bold">🖨️ Print</button>
+                        </div>
+                        <div id="quote-preview-content" class="text-slate-300 text-sm space-y-2"></div>
+                    </div>
+                </div>
             </div>
         </section>
 
     </main>
 
-    <!-- Interactive Scripts -->
+    <!-- Footer -->
+    <footer class="bg-slate-950 text-slate-500 text-sm py-8 border-t border-slate-800 text-center">
+        <div class="max-w-7xl mx-auto px-4">
+            <p class="font-bold text-slate-400">VISHNU FABRIX © 2026</p>
+            <p class="mt-2 text-xs">Specialists in UPVC, Aluminium & Steel Fabrication | Jamshedpur, Jharkhand</p>
+        </div>
+    </footer>
+
+    <!-- Logic Script -->
     <script>
-        // 1. Typed.js Initialization
-        document.addEventListener('DOMContentLoaded', function() {
-            var typed = new Typed('#element', {
-                strings: ['<i> Designer </i>', '<i> Aluminium Fabricator.</i>'],
-                typeSpeed: 50,
-                backSpeed: 30,
-                loop: true
+        // 1. Initialization
+        document.addEventListener('DOMContentLoaded', () => {
+            new Typed('#typed-element', {
+                strings: ['Designer', 'Aluminium Fabricator.', 'Structural Engineer.'],
+                typeSpeed: 60, backSpeed: 40, loop: true
             });
+            initCharts();
+            updateEstimatorForm(); 
         });
 
-        // 2. Tab Navigation Logic
+        // 2. Tab Logic
         function switchTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(sec => sec.classList.add('hidden'));
+            document.querySelectorAll('.tab-content').forEach(sec => sec.classList.remove('active'));
             document.querySelectorAll('.tab-btn').forEach(btn => {
-                btn.classList.remove('bg-amber-600', 'text-white', 'font-semibold');
-                btn.classList.add('text-slate-300', 'hover:text-white', 'hover:bg-slate-800');
+                btn.classList.remove('bg-amber-600', 'text-white');
+                btn.classList.add('text-slate-400', 'bg-transparent');
             });
 
-            document.getElementById(`sec-${tabId}`).classList.remove('hidden');
+            document.getElementById(`sec-${tabId}`).classList.add('active');
             const activeBtn = document.getElementById(`tab-${tabId}`);
-            activeBtn.classList.remove('text-slate-300', 'hover:text-white', 'hover:bg-slate-800');
-            activeBtn.classList.add('bg-amber-600', 'text-white', 'font-semibold');
+            activeBtn.classList.remove('text-slate-400', 'bg-transparent');
+            activeBtn.classList.add('bg-amber-600', 'text-white');
 
-            // Force Instagram embeds to render when the video tab is opened
-            if(tabId === 'videos' && window.instgrm) {
-                window.instgrm.Embeds.process();
+            if(tabId === 'videos' && window.instgrm) { window.instgrm.Embeds.process(); }
+            if(tabId === 'estimator') {
+                if(materialRadarChart) materialRadarChart.resize();
+                if(costDonutChart) costDonutChart.resize();
             }
+        }
+
+        // 3. Estimator & Charts Logic
+        const estimatorRates = {
+            kitchen: [
+                { name: "Standard Laminate Profile (₹ 1,100 / Rft)", rate: 1100 },
+                { name: "Premium High-Gloss Acrylic (₹ 1,650 / Rft)", rate: 1650 }
+            ],
+            windows: [
+                { name: "2-Track White UPVC (₹ 380 / Sq Ft)", rate: 380 },
+                { name: "Powder-Coated Aluminium (₹ 420 / Sq Ft)", rate: 420 }
+            ],
+            railing: [
+                { name: "SS 304 Heavy Pipe Railing (₹ 680 / Rft)", rate: 680 },
+                { name: "SS 304 with Toughened Glass (₹ 1,150 / Rft)", rate: 1150 }
+            ],
+            gate: [
+                { name: "MS Gate + CNC Laser Cut Jali (₹ 420 / Sq Ft)", rate: 420 },
+                { name: "Premium Stainless Steel Gate (₹ 750 / Sq Ft)", rate: 750 }
+            ]
+        };
+
+        let materialRadarChart = null;
+        let costDonutChart = null;
+
+        function updateEstimatorForm() {
+            const cat = document.getElementById('est-category').value;
+            const gradeSelect = document.getElementById('est-grade');
+            const qtyLabel = document.getElementById('est-qty-label');
+            
+            gradeSelect.innerHTML = '';
+            estimatorRates[cat].forEach(opt => {
+                const el = document.createElement('option');
+                el.value = opt.rate; el.textContent = opt.name;
+                gradeSelect.appendChild(el);
+            });
+            qtyLabel.textContent = (cat === 'kitchen' || cat === 'railing') ? "Quantity (Running Feet):" : "Quantity (Square Feet):";
+            calculateEstimate();
+        }
+
+        function calculateEstimate() {
+            const cat = document.getElementById('est-category').value;
+            const unitRate = parseFloat(document.getElementById('est-grade').value) || 0;
+            const qty = parseFloat(document.getElementById('est-qty').value) || 0;
+            const premium = document.getElementById('est-opt-premium').checked;
+            
+            const unit = (cat === 'kitchen' || cat === 'railing') ? 'Running Feet' : 'Sq.Ft';
+            document.getElementById('est-qty-display').textContent = `${qty} ${unit}`;
+            
+            let baseCost = unitRate * qty;
+            if(premium) baseCost *= 1.15;
+
+            const matCost = Math.round(baseCost * 0.55);
+            const fitCost = Math.round(baseCost * 0.25);
+            const fabCost = Math.round(baseCost * 0.20);
+            
+            document.getElementById('est-total-cost').textContent = `₹ ${Math.round(baseCost).toLocaleString('en-IN')}`;
+            
+            if(costDonutChart) {
+                costDonutChart.data.datasets[0].data = [matCost, fitCost, fabCost];
+                costDonutChart.update();
+            }
+        }
+
+        function initCharts() {
+            // Donut Chart
+            const ctxDonut = document.getElementById('costDonutChart').getContext('2d');
+            Chart.defaults.color = '#cbd5e1';
+            costDonutChart = new Chart(ctxDonut, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Materials & Profiles', 'Hardware Fittings', 'Fabrication Labor'],
+                    datasets: [{
+                        data: [55, 25, 20],
+                        backgroundColor: ['#d97706', '#3b82f6', '#475569'],
+                        borderColor: '#1e293b', borderWidth: 2
+                    }]
+                },
+                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom' } }, cutout: '65%' }
+            });
+
+            // Radar Chart
+            const ctxRadar = document.getElementById('materialRadarChart').getContext('2d');
+            materialRadarChart = new Chart(ctxRadar, {
+                type: 'radar',
+                data: {
+                    labels: ['Durability', 'Corrosion Resistance', 'Thermal Insul.', 'Low Maintenance', 'Cost Efficiency'],
+                    datasets: [
+                        { label: 'UPVC', data: [75, 100, 95, 95, 80], borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.2)' },
+                        { label: 'Aluminium', data: [85, 90, 70, 85, 75], borderColor: '#d97706', backgroundColor: 'rgba(217,119,6,0.2)' },
+                        { label: 'SS 304', data: [95, 95, 50, 90, 60], borderColor: '#cbd5e1', backgroundColor: 'rgba(203,213,225,0.2)' }
+                    ]
+                },
+                options: { responsive: true, maintainAspectRatio: false, scales: { r: { grid: { color: '#334155' }, angleLines: { color: '#334155' }, ticks: { display: false, min: 0, max: 100 } } } }
+            });
+        }
+
+        // 4. Form Submission
+        function generateQuotePreview(e) {
+            e.preventDefault();
+            const name = document.getElementById('form-name').value;
+            const phone = document.getElementById('form-phone').value;
+            const notes = document.getElementById('form-notes').value || "Standard Site Measurement Requested.";
+            
+            const html = `
+                <p><strong class="text-white">Client:</strong> ${name}</p>
+                <p><strong class="text-white">Contact:</strong> ${phone}</p>
+                <p><strong class="text-white">Requirements:</strong> ${notes}</p>
+                <hr class="border-slate-700 my-2">
+                <p class="text-xs text-amber-500">Please present this summary at the Vishnu Fabrix Workshop.</p>
+            `;
+            document.getElementById('quote-preview-content').innerHTML = html;
+            document.getElementById('quote-preview-box').classList.remove('hidden');
+        }
+
+        // 5. Gallery Lightbox Logic
+        const galleryItems = [
+            {src:"https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&w=1600&q=80", title:"Modular Kitchens"},
+            {src:"https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1600&q=80", title:"UPVC Fenestration"},
+            {src:"https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1600&q=80", title:"SS 304 Railings"},
+            {src:"https://images.unsplash.com/photo-1600585154340-be6161a56c0a?auto=format&fit=crop&w=1600&q=80", title:"Main Entry Gates"},
+            {src:"https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?auto=format&fit=crop&w=1600&q=80", title:"Aluminium Partitions"},
+            {src:"https://images.unsplash.com/photo-1556911220-bff31c812dba?auto=format&fit=crop&w=1600&q=80", title:"Custom Interiors"}
+        ];
+        let currentIdx = 0;
+
+        function filterGallery(cat, btn) {
+            document.querySelectorAll('.gallery-filter').forEach(b => { b.classList.remove('active-filter', 'bg-slate-700', 'text-slate-300'); b.classList.add('bg-slate-800', 'text-slate-400'); });
+            btn.classList.add('active-filter', 'bg-slate-700', 'text-slate-300'); btn.classList.remove('bg-slate-800', 'text-slate-400');
+            document.querySelectorAll('.gallery-card').forEach(card => {
+                card.style.display = (cat === 'all' || card.dataset.category === cat) ? 'block' : 'none';
+            });
+        }
+        function openGalleryImage(idx) {
+            currentIdx = idx;
+            document.getElementById('lightbox-image').src = galleryItems[idx].src;
+            document.getElementById('lightbox-caption').textContent = galleryItems[idx].title;
+            document.getElementById('gallery-lightbox').classList.remove('hidden');
+            document.getElementById('gallery-lightbox').classList.add('flex');
+            document.body.style.overflow = 'hidden';
+        }
+        function closeGalleryImage() {
+            document.getElementById('gallery-lightbox').classList.add('hidden');
+            document.getElementById('gallery-lightbox').classList.remove('flex');
+            document.body.style.overflow = '';
+        }
+        function stepGalleryImage(dir) {
+            currentIdx = (currentIdx + dir + galleryItems.length) % galleryItems.length;
+            openGalleryImage(currentIdx);
         }
     </script>
 </body>
